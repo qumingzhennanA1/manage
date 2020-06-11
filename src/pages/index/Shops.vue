@@ -2,7 +2,7 @@
         <div class="shops">
             <div class="shops_top">
                 <h3>店铺管理</h3>
-                  <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                  <el-button type="primary" @click="onSubmit()">立即创建</el-button>
             </div>
     <el-form ref="form" :model="form" label-width="80px">
   <el-form-item label="店铺名称">
@@ -16,7 +16,7 @@
   <el-form-item label="店铺头像">
    <el-upload
   class="avatar-uploader"
-  action="https://jsonplaceholder.typicode.com/posts/"
+  action="http://127.0.0.1:5000/shop/upload/"
   :show-file-list="false"
   :on-success="handleAvatarSuccess"
   :before-upload="beforeAvatarUpload">
@@ -84,7 +84,15 @@
   
 
     <el-form-item label="营业时间">
-  <el-time-picker
+        <el-time-picker
+    is-range
+    v-model="value1"
+    range-separator="至"
+    start-placeholder="开始时间"
+    end-placeholder="结束时间"
+    placeholder="选择时间范围">
+  </el-time-picker>
+  <!-- <el-time-picker
     v-model="value1"
     :picker-options="{
       selectableRange: '8:30:00 - 20:30:00'
@@ -98,14 +106,14 @@
       selectableRange: '8:30:00 - 20:30:00'
     }"
     placeholder="任意时间点">
-  </el-time-picker>
+  </el-time-picker> -->
   </el-form-item>
 </el-form>
         </div>
 </template>
 
 <script>
-import {API_SHOP_INFO} from "@/api/apis"
+import {API_SHOP_INFO,API_SHOP_EDIT} from "@/api/apis"
 export default {
   data() {
     return {
@@ -123,13 +131,43 @@ export default {
       imageUrl: "",
       dialogImageUrl: "",
       dialogVisible: false,
-      value1: new Date(2016, 9, 10, 18, 40),
-      value2: new Date(2016, 9, 10, 18, 40),
+      value1:"",
+      // value2: "",
+      id:"",
     };
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      
+     API_SHOP_EDIT(
+       this.id,
+        this.form.name,//店铺名称
+         this.form.desc,//店铺公告
+        //  this.form.imgUrl,//
+         this.form.pic,
+         this.form.date,
+         this.form.describe,
+         this.form.score,
+         this.form.sales,
+         this.form.type,
+         this.value1,
+        //  this.form.dialogImageUrl,
+     ).then(res=>{
+       console.log(res)
+      //  console.log(this.value1)
+      console.log(       
+        this.id,
+        this.form.name,//店铺名称
+         this.form.desc,//店铺公告
+        //  this.form.imgUrl,//
+         this.form.pic,
+         this.form.date,
+         this.form.describe,
+         this.form.score,
+         this.form.sales,
+         this.form.type,
+         this.value1,)
+     })
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
@@ -172,11 +210,13 @@ export default {
      this.dialogImageUrl=v
      });
      this.form.pic=res.data.data.deliveryPrice;
-     this.form.describe=res.data.data.bulletin;
+     this.form.describe=res.data.data.description;
      this.form.date=res.data.data.deliveryTime;
      this.form.score=res.data.data.score;
      this.form.sales=res.data.data.sellCount;
      this.form.type=res.data.data.supports;
+     this.value1 = res.data.data.date
+     this.id=res.data.data.id
    } )
   }
 };

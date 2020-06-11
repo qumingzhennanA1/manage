@@ -273,15 +273,15 @@ export default {
   left: 50%;
   margin: -130px 0 0 -200px;
   width: 270px;
-  height: 110px;
+  height: 140px;
   border: 1px solid #000;
   text-indent: 1em;
-  padding: 10px;
+  padding: 20px;
   z-index: 888;
-  background: yellowgreen;
+  background: #fff;
 }
 .edit_boxs p {
-  line-height: 30px;
+  line-height: 40px;
 }
 .edit_boxs p button {
   margin-left: 50px;

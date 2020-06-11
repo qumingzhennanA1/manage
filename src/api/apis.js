@@ -131,6 +131,19 @@ export const API_SHOP_INFO = () => axios.get("/shop/info", { })
 // 29.首页报表接口
 export const API_ORDER_TOTAL = () => axios.get("/order/totaldata", {})
 
-
+// 28.店铺内容修改
+// id		店铺id
+// name	店铺名称
+// bulletin 店铺公告
+// avatar	店铺头像
+// deliveryPrice	起送价格
+// deliveryTime	送达时间
+// description		店铺描述
+// score	店铺好评率
+// sellCount	店铺销量
+// supports	活动支持
+// date 营业时间
+// pics
+export const API_SHOP_EDIT = (id, name, bulletin, avatar, deliveryPrice, deliveryTime,description,score,sellCount,supports,date,pics) => axios.post("/shop/edit", { id, name, bulletin, avatar, deliveryPrice, deliveryTime,description,score,sellCount,supports,date,pics})
 // 30.订单报表接口
 export const API_ORDER_ORDERTOTAL = (date) => axios.get("/order/ordertotal", { params: { date } })

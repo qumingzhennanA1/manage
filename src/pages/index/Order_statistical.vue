@@ -62,31 +62,54 @@ export default {
     };
   },
   mounted() {
+
          let myChar = echarts.init(document.getElementById("myChar"));
         API_ORDER_ORDERTOTAL(JSON.stringify(this.value2)).then(res=>{
+          // console.log(res)
            res.data.data.forEach(v => {
-              this.timeArr.push( JSON.stringify(v.orderTime) )
-              this.amountArr.push(v.ordermount)
+              this.timeArr.push( v.orderTime )
+              this.amountArr.push(v.orderAmount)
            });
-        let option = {
-        xAxis: {
-          type: "category",
-          data:  this.timeArr
-        },
-        yAxis: {
-          type: "value"
-        },
-        series: [
-          {
-            data:this.amountArr,
-            type: "bar",
-            showBackground: true,
-            backgroundStyle: {
-              color: "rgba(220, 220, 220, 0.8)"
+          //  console.log(this.timeArr)
+          //  console.log(this.amountArr)
+      let option = {
+          title: {
+            text: "订单统计"
+          },
+          tooltip: {
+            trigger: "axis"
+          },
+          legend: {
+            data: ["金额数据"]
+          },
+          grid: {
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
             }
-          }
-        ]
-      };
+          },
+          xAxis: {
+            type: "category",
+            boundaryGap: false,
+            data: this.timeArr
+          },
+          yAxis: {
+            type: "value"
+          },
+          series: [
+            {
+              name: "金额数据",
+              type: "line",
+              stack: "总量",
+              data: this.amountArr
+            }
+          ]
+        };
          myChar.setOption(option)
      })
   },
@@ -105,7 +128,9 @@ export default {
   margin: 0 20px;
 }
 #myChar {
-  width: 600px;
-  height: 400px;
+  width: 800px;
+  height: 500px;
+  margin-top: 30px;
+  background: #fff;
 }
 </style>
