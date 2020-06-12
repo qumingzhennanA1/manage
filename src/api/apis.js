@@ -1,6 +1,15 @@
 import axios from "axios"
 
-axios.defaults.baseURL = "http://127.0.0.1:5000"
+export const SEVER_IP = "http://127.0.0.1:5000"
+
+//商店图片上传接口
+export const SHOP_UPLOAD_IMG = SEVER_IP + '/shop/upload'
+//店铺图片地址
+export const SEVER_SHOP_IMG = SEVER_IP+'/upload/shop/'
+
+axios.defaults.baseURL=SEVER_IP
+
+
 
 // 登录 
 //account 用户名
@@ -144,6 +153,6 @@ export const API_ORDER_TOTAL = () => axios.get("/order/totaldata", {})
 // supports	活动支持
 // date 营业时间
 // pics
-export const API_SHOP_EDIT = (id, name, bulletin, avatar, deliveryPrice, deliveryTime,description,score,sellCount,supports,date,pics) => axios.post("/shop/edit", { id, name, bulletin, avatar, deliveryPrice, deliveryTime,description,score,sellCount,supports,date,pics})
+export const API_SHOP_EDIT = (params) => axios.post("/shop/edit",  params)
 // 30.订单报表接口
 export const API_ORDER_ORDERTOTAL = (date) => axios.get("/order/ordertotal", { params: { date } })

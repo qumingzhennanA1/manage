@@ -304,6 +304,7 @@ export default {
               message: "修改成功",
               type: "success"
             });
+                  this.centerDialogVisible = false;
             this.getData()
         }
       })
@@ -375,5 +376,8 @@ export default {
 }
 .el-dialog--center p{
   margin: 10px 0;
+}
+.el-input__inner{
+ width: 160px;
 }
 </style>
